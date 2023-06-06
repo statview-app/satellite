@@ -1,0 +1,35 @@
+{
+    "name": "larasight/satellite",
+    "description": "Satellite package for LaraSight",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "LaraSight\\Satellite\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaraSight\\Satellite\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sebastiaan",
+            "email": "sebastiaan@larasight.app"
+        }
+    ],
+    "require": {
+        "illuminate/contracts": "^9.0 || ^10.0"
+    },
+    "require-dev": {
+        "spatie/laravel-ray": "^1.32.4",
+        "pestphp/pest": "^2.6",
+        "pestphp/pest-plugin-laravel": "^2.0",
+        "orchestra/testbench": "^8.0.10"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
