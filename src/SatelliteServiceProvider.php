@@ -3,6 +3,7 @@
 namespace LaraSight\Satellite;
 
 use Illuminate\Support\ServiceProvider;
+use LaraSight\Satellite\Widgets\Widget;
 
 class SatelliteServiceProvider extends ServiceProvider
 {
