@@ -10,6 +10,8 @@ class Widget
 
     public mixed $value = null;
 
+    public ?string $description = null;
+
     public function __construct(string $code)
     {
         $this->code = $code;
@@ -25,6 +27,13 @@ class Widget
     public function value(mixed $value): static
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function description(string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

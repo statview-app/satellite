@@ -1,21 +1,21 @@
 {
-    "name": "larasight/satellite",
-    "description": "Satellite package for LaraSight",
+    "name": "statview/satellite",
+    "description": "Satellite package for Statview",
     "type": "library",
     "autoload": {
         "psr-4": {
-            "LaraSight\\Satellite\\": "src/"
+            "Statview\\Satellite\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LaraSight\\Satellite\\Tests\\": "tests/"
+            "Statview\\Satellite\\Tests\\": "tests/"
         }
     },
     "authors": [
         {
             "name": "Sebastiaan",
-            "email": "sebastiaan@larasight.app"
+            "email": "skloos@pm.me"
         }
     ],
     "require": {

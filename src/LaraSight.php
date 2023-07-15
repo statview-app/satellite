@@ -2,6 +2,7 @@
 
 namespace LaraSight\Satellite;
 
+use Illuminate\Support\Facades\Http;
 use LaraSight\Satellite\Widgets\Widget;
 
 class LaraSight
@@ -18,6 +19,20 @@ class LaraSight
             ...static::$widgets,
             ...$widgets,
         ];
+    }
+
+    public static function postToTimeline(string $title, string $body, string $type = 'info', string $icon = '📣'): void
+    {
+        $response = Http::withoutVerifying()
+            ->withHeaders([
+                'Authorization' => 'Bearer ' . config('larasight.api_key'),
+            ])
+            ->post(config('larasight.endpoint') . '/api/timeline/' . config('larasight.project_id'), [
+                'title' => $title,
+                'body' => $body,
+                'type' => $type,
+                'icon' => $icon,
+            ]);
     }
 
     public static function getWidgets(): array
