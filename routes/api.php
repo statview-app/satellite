@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Artisan;
-use LaraSight\Satellite\Http\Middleware\ValidateRequest;
-use LaraSight\Satellite\LaraSight;
+use Statview\Satellite\Http\Middleware\ValidateRequest;
+use Statview\Satellite\Statview;
 
-Route::get('/larasight/satellite/about', function () {
+Route::get('/statview/satellite/about', function () {
     Artisan::call('about --json');
 
     return [
@@ -12,8 +12,8 @@ Route::get('/larasight/satellite/about', function () {
     ];
 })->middleware(ValidateRequest::class);
 
-Route::get('/larasight/satellite/stats', function () {
+Route::get('/statview/satellite/stats', function () {
     return [
-        'widgets' => LaraSight::getWidgets(),
+        'widgets' => Statview::getWidgets(),
     ];
 })->middleware(ValidateRequest::class);

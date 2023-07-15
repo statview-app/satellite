@@ -1,11 +1,11 @@
 <?php
 
-namespace LaraSight\Satellite;
+namespace Statview\Satellite;
 
 use Illuminate\Support\Facades\Http;
-use LaraSight\Satellite\Widgets\Widget;
+use Statview\Satellite\Widgets\Widget;
 
-class LaraSight
+class Statview
 {
     protected static array $widgets = [];
 
@@ -25,9 +25,9 @@ class LaraSight
     {
         $response = Http::withoutVerifying()
             ->withHeaders([
-                'Authorization' => 'Bearer ' . config('larasight.api_key'),
+                'Authorization' => 'Bearer ' . config('statview.api_key'),
             ])
-            ->post(config('larasight.endpoint') . '/api/timeline/' . config('larasight.project_id'), [
+            ->post(config('statview.endpoint') . '/api/timeline/' . config('statview.project_id'), [
                 'title' => $title,
                 'body' => $body,
                 'type' => $type,

@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraSight\Satellite\Widgets;
+namespace Statview\Satellite\Widgets;
 
 class Widget
 {

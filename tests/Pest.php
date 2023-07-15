@@ -1,5 +1,5 @@
 <?php
 
-use LaraSight\Satellite\Tests\TestCase;
+use Statview\Satellite\Tests\TestCase;
 
 uses(TestCase::class)->in('Feature');

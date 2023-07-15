@@ -1,8 +1,8 @@
 <?php
 
-namespace LaraSight\Satellite\Tests;
+namespace Statview\Satellite\Tests;
 
-use LaraSight\Satellite\SatelliteServiceProvider;
+use Statview\Satellite\SatelliteServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

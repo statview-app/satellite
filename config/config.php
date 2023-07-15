@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'api_key' => env('LARASIGHT_API_KEY'),
+    'api_key' => env('STATVIEW_API_KEY'),
 
-    'project_id' => env('LARASIGHT_PROJECT_ID'),
+    'project_id' => env('STATVIEW_PROJECT_ID'),
 
     'monitors' => [
         'cron' => true,
@@ -11,5 +11,5 @@ return [
         'queue' => true,
     ],
 
-    'endpoint' => env('LARASIGHT_ENDPOINT', 'https://larasight.app'),
+    'endpoint' => env('STATVIEW_ENDPOINT', 'https://statview.app'),
 ];

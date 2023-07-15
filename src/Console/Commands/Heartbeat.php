@@ -1,16 +1,16 @@
 <?php
 
-namespace LaraSight\Satellite\Console\Commands;
+namespace Statview\Satellite\Console\Commands;
 
 use Illuminate\Console\Command;
-use LaraSight\Satellite\Jobs\PingCronMonitor;
-use LaraSight\Satellite\Jobs\PingQueueMonitor;
+use Statview\Satellite\Jobs\PingCronMonitor;
+use Statview\Satellite\Jobs\PingQueueMonitor;
 
 class Heartbeat extends Command
 {
-    protected $signature = 'larasight:heartbeat';
+    protected $signature = 'statview:heartbeat';
 
-    protected $description = 'Pings LaraSight';
+    protected $description = 'Pings Statview';
 
     public function handle(): void
     {

@@ -1,16 +1,16 @@
 <?php
 
-namespace LaraSight\Satellite;
+namespace Statview\Satellite;
 
 use Illuminate\Support\ServiceProvider;
-use LaraSight\Satellite\Console\Commands\Heartbeat;
+use Statview\Satellite\Console\Commands\Heartbeat;
 
 class SatelliteServiceProvider extends ServiceProvider
 {
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/config.php', 'larasight',
+            __DIR__.'/../config/config.php', 'statview',
         );
 
         $this->commands([

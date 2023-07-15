@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraSight\Satellite\Jobs;
+namespace Statview\Satellite\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,8 +21,8 @@ class PingCronMonitor implements ShouldQueue
     {
         $response = Http::withoutVerifying()
             ->withHeaders([
-                'Authorization' => 'Bearer ' . config('larasight.api_key'),
+                'Authorization' => 'Bearer ' . config('statview.api_key'),
             ])
-            ->post(config('larasight.endpoint') . '/api/ping/cron/' . config('larasight.project_id'));
+            ->post(config('statview.endpoint') . '/api/ping/cron/' . config('statview.project_id'));
     }
 }
