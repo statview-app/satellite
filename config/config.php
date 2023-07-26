@@ -12,4 +12,8 @@ return [
     ],
 
     'endpoint' => env('STATVIEW_ENDPOINT', 'https://statview.app'),
+
+    'whitelisted_ips' => ['128.140.60.157', '127.0.0.1'],
+
+    'strict' => env('STATVIEW_STRICT', true),
 ];

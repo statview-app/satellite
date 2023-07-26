@@ -1,19 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
-use Statview\Satellite\Http\Middleware\ValidateRequest;
-use Statview\Satellite\Statview;
+Route::prefix('/statview/satellite')
+    ->middleware([
+        \Statview\Satellite\Http\Middleware\ValidateRequest::class,
+    ])
+    ->group(function () {
+        Route::get('about', \Statview\Satellite\Http\Controllers\AboutController::class);
 
-Route::get('/statview/satellite/about', function () {
-    Artisan::call('about --json');
+        Route::get('stats', \Statview\Satellite\Http\Controllers\StatsController::class);
 
-    return [
-        'data' => json_decode(Artisan::output(), true),
-    ];
-})->middleware(ValidateRequest::class);
-
-Route::get('/statview/satellite/stats', function () {
-    return [
-        'widgets' => Statview::getWidgets(),
-    ];
-})->middleware(ValidateRequest::class);
+        Route::post('toggle-maintenance', \Statview\Satellite\Http\Controllers\MaintenanceController::class);
+    });
