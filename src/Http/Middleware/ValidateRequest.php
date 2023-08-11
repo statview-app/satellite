@@ -10,7 +10,7 @@ class ValidateRequest
     public function handle(Request $request, Closure $next)
     {
         abort_if(
-            boolean: config('statview.strict') && ! in_array($request->ip(), config('statview.whitelisted_ips')),
+            boolean: config('statview.strict') && ! $this->checkIp($request),
             code: 403
         );
 
@@ -20,5 +20,20 @@ class ValidateRequest
         );
 
         return $next($request);
+    }
+
+    private function checkIp(Request $request): bool
+    {
+        $whitelistedIps = config('statview.whitelisted_ips');
+
+        if (in_array($request->ip(), $whitelistedIps)) {
+            return true;
+        }
+
+        if (in_array($request->header('CF-Connecting-IP'), $whitelistedIps)) {
+            return true;
+        }
+
+        return false;
     }
 }
