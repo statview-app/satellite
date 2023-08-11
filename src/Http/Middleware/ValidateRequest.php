@@ -30,7 +30,7 @@ class ValidateRequest
             return true;
         }
 
-        if (in_array($request->header('CF-Connecting-IP'), $whitelistedIps)) {
+        if (in_array($request->ip(), config('statview.services.cloudflare_ips')) && in_array($request->header('CF-Connecting-IP'), $whitelistedIps)) {
             return true;
         }
 
