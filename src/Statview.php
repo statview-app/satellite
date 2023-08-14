@@ -2,12 +2,14 @@
 
 namespace Statview\Satellite;
 
+use Closure;
 use Illuminate\Support\Facades\Http;
+use Statview\Satellite\Enums\PostType;
 use Statview\Satellite\Widgets\Widget;
 
 class Statview
 {
-    protected static array $widgets = [];
+    protected static array|Closure $widgets = [];
 
     public static function registerWidgets(array|Widget $widgets): void
     {
@@ -21,7 +23,7 @@ class Statview
         ];
     }
 
-    public static function postToTimeline(string $title, string $body, string $type = 'info', string $icon = '📣'): void
+    public static function postToTimeline(string $title, string $body, PostType $type = PostType::Default, ?string $icon = null): void
     {
         $response = Http::withoutVerifying()
             ->withHeaders([
@@ -30,13 +32,19 @@ class Statview
             ->post(config('statview.endpoint') . '/api/timeline/' . config('statview.project_id'), [
                 'title' => $title,
                 'body' => $body,
-                'type' => $type,
-                'icon' => $icon,
+                'type' => $type->value,
+                'icon' => $icon ?? $type->getIcon(),
             ]);
     }
 
     public static function getWidgets(): array
     {
-        return static::$widgets;
+        $widgets = static::$widgets;
+
+        if ($widgets instanceof Closure) {
+            return $widgets();
+        }
+
+        return $widgets;
     }
 }
