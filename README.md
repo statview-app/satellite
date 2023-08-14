@@ -19,6 +19,20 @@ STATVIEW_API_KEY=
 STATVIEW_PROJECT_ID=
 ```
 
+### Maintenance mode
+You need to make an exception for Statview to access your app during maintenance mode if you want to turn of maintenance mode from your Statview panel.
+
+```php
+/**
+ * The URIs that should be reachable while maintenance mode is enabled.
+ *
+ * @var array<int, string>
+ */
+protected $except = [
+    '/statview/*'
+];
+```
+
 ## Usage
 ### Provide data for widgets
 You can register your widgets by adding it to a Service Provider.
