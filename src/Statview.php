@@ -11,8 +11,14 @@ class Statview
 {
     protected static array|Closure $widgets = [];
 
-    public static function registerWidgets(array|Widget $widgets): void
+    public static function registerWidgets(array|Widget|Closure $widgets): void
     {
+        if (is_callable($widgets)) {
+            static::$widgets = $widgets;
+
+            return;
+        }
+
         if (! is_array($widgets)) {
             $widgets = [$widgets];
         }
