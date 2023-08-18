@@ -31,16 +31,20 @@ class Statview
 
     public static function postToTimeline(string $title, string $body, PostType $type = PostType::Default, ?string $icon = null): void
     {
-        $response = Http::withoutVerifying()
-            ->withHeaders([
-                'Authorization' => 'Bearer ' . config('statview.api_key'),
-            ])
-            ->post(config('statview.endpoint') . '/api/timeline/' . config('statview.project_id'), [
-                'title' => $title,
-                'body' => $body,
-                'type' => $type->value,
-                'icon' => $icon ?? $type->getIcon(),
-            ]);
+        try {
+            $response = Http::withoutVerifying()
+                ->withHeaders([
+                    'Authorization' => 'Bearer ' . config('statview.api_key'),
+                ])
+                ->post(config('statview.endpoint') . '/api/timeline/' . config('statview.project_id'), [
+                    'title' => $title,
+                    'body' => $body,
+                    'type' => $type->value,
+                    'icon' => $icon ?? $type->getIcon(),
+                ]);
+        } catch (\Exception $e) {
+            info($e);
+        }
     }
 
     public static function getWidgets(): array
