@@ -31,7 +31,8 @@ class SatelliteServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Heartbeat::class,
+                PingCronMonitor::class,
+                PingQueueMonitor::class,
                 TestWidgets::class,
             ]);
 
