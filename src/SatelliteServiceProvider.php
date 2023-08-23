@@ -2,12 +2,15 @@
 
 namespace Statview\Satellite;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Statview\Satellite\Console\Commands\Heartbeat;
 use Statview\Satellite\Console\Commands\TestWidgets;
+use Statview\Satellite\Jobs\PingCronMonitor;
+use Statview\Satellite\Jobs\PingQueueMonitor;
 
 class SatelliteServiceProvider extends ServiceProvider
 {
@@ -35,6 +38,8 @@ class SatelliteServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/statview.php' => config_path('statview.php'),
             ], 'statview-config');
+
+            $this->bootChecks();
         }
     }
 
@@ -73,5 +78,16 @@ class SatelliteServiceProvider extends ServiceProvider
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         });
+    }
+
+    private function bootChecks(): void
+    {
+        if (config('statview.monitors.cron')) {
+            $this->app->afterResolving(Schedule::class, static function (Schedule $schedule) {
+                $schedule
+                    ->command(Heartbeat::class)
+                    ->everyMinute();
+            });
+        }
     }
 }
