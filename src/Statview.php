@@ -32,8 +32,7 @@ class Statview
     public static function postToTimeline(string $title, string $body, PostType $type = PostType::Default, ?string $icon = null): void
     {
         try {
-            $response = Http::withoutVerifying()
-                ->withHeaders([
+            $response = Http::withHeaders([
                     'Authorization' => 'Bearer ' . config('statview.api_key'),
                 ])
                 ->post(config('statview.endpoint') . '/api/timeline/' . config('statview.project_id'), [

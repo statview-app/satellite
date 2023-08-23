@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('about', \Statview\Satellite\Http\Controllers\AboutController::class);
 
 Route::get('stats', \Statview\Satellite\Http\Controllers\StatsController::class);

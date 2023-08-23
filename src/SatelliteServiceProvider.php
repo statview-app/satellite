@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Statview\Satellite\Console\Commands\Heartbeat;
+use Statview\Satellite\Console\Commands\PingCronMonitor;
+use Statview\Satellite\Console\Commands\PingQueueMonitor;
 use Statview\Satellite\Console\Commands\TestWidgets;
-use Statview\Satellite\Jobs\PingCronMonitor;
-use Statview\Satellite\Jobs\PingQueueMonitor;
 
 class SatelliteServiceProvider extends ServiceProvider
 {
@@ -62,7 +62,6 @@ class SatelliteServiceProvider extends ServiceProvider
     {
         Http::macro('statviewClient', function () {
             return Http::baseUrl(config('statview.endpoint') . '/api/')
-                ->withoutVerifying()
                 ->withHeaders([
                     'Authorization' => 'Bearer ' . config('statview.api_key'),
                 ]);
@@ -85,7 +84,15 @@ class SatelliteServiceProvider extends ServiceProvider
         if (config('statview.monitors.cron')) {
             $this->app->afterResolving(Schedule::class, static function (Schedule $schedule) {
                 $schedule
-                    ->command(Heartbeat::class)
+                    ->command(PingCronMonitor::class)
+                    ->everyMinute();
+            });
+        }
+
+        if (config('statview.monitors.queue')) {
+            $this->app->afterResolving(Schedule::class, static function (Schedule $schedule) {
+                $schedule
+                    ->command(PingQueueMonitor::class)
                     ->everyMinute();
             });
         }
