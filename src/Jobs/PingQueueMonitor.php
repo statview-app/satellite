@@ -19,6 +19,7 @@ class PingQueueMonitor implements ShouldQueue
 
     public function handle(): void
     {
-        $response = Http::statviewClient()->post(config('statview.endpoint') . '/api/ping/queue/' . config('statview.project_id'));
+        $response = Http::statviewClient()
+            ->post('/ping/queue/' . config('statview.project_id'));
     }
 }

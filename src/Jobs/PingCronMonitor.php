@@ -19,9 +19,7 @@ class PingCronMonitor implements ShouldQueue
 
     public function handle()
     {
-        $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . config('statview.api_key'),
-            ])
-            ->post(config('statview.endpoint') . '/api/ping/cron/' . config('statview.project_id'));
+        $response = Http::statviewClient()
+            ->post('/ping/cron/' . config('statview.project_id'));
     }
 }
