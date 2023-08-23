@@ -4,6 +4,7 @@ namespace Statview\Satellite;
 
 use Illuminate\Support\ServiceProvider;
 use Statview\Satellite\Console\Commands\Heartbeat;
+use Statview\Satellite\Console\Commands\TestWidgets;
 
 class SatelliteServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,7 @@ class SatelliteServiceProvider extends ServiceProvider
 
         $this->commands([
             Heartbeat::class,
+            TestWidgets::class,
         ]);
     }
 
