@@ -19,10 +19,6 @@ class PingQueueMonitor implements ShouldQueue
 
     public function handle(): void
     {
-        $response = Http::withoutVerifying()
-            ->withHeaders([
-                'Authorization' => 'Bearer ' . config('statview.api_key'),
-            ])
-            ->post(config('statview.endpoint') . '/api/ping/queue/' . config('statview.project_id'));
+        $response = Http::statviewClient()->post(config('statview.endpoint') . '/api/ping/queue/' . config('statview.project_id'));
     }
 }
