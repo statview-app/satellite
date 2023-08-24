@@ -13,6 +13,6 @@ class PingQueueMonitor extends Command
 
     public function handle(): void
     {
-        dispatch(PingQueueMonitorJob::class);
+        dispatch(new PingQueueMonitorJob());
     }
 }
