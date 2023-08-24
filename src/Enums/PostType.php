@@ -10,7 +10,7 @@ enum PostType: string
 
     case Warning = 'warning';
 
-    case Success = 'Success';
+    case Success = 'success';
 
     public function getIcon(): string
     {
