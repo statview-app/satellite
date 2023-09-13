@@ -15,8 +15,7 @@ php artisan vendor:publish --tag="statview-config"
 ### Adding environment variables
 You can get the variable data during the project setup at Statview.
 ```dotenv
-STATVIEW_API_KEY=
-STATVIEW_PROJECT_ID=
+STATVIEW_DSN=
 ```
 
 ### Maintenance mode
