@@ -20,7 +20,9 @@ STATVIEW_PROJECT_ID=
 ```
 
 ### Maintenance mode
-You need to make an exception for Statview to access your app during maintenance mode if you want to turn of maintenance mode from your Statview panel.
+You need to make an exception for Statview to access your app during maintenance mode if you want to turn off maintenance mode from your Statview panel.
+
+Add statview to the `$except` array of your `PreventRequestsDuringMaintenance` middleware.
 
 ```php
 /**
