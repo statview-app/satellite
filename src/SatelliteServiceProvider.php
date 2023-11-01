@@ -62,10 +62,16 @@ class SatelliteServiceProvider extends ServiceProvider
     private function registerHttpMacro(): void
     {
         Http::macro('statviewClient', function () {
-            return Http::baseUrl(config('statview.endpoint') . '/api/')
+            $http = Http::baseUrl(config('statview.endpoint') . '/api/')
                 ->withHeaders([
                     'Authorization' => 'Bearer ' . config('statview.api_key'),
                 ]);
+
+            if (config('app.env') === 'local') {
+                $http->withoutVerifying();
+            }
+
+            return $http;
         });
     }
 

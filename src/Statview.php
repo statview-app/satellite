@@ -55,6 +55,22 @@ class Statview
         }
     }
 
+    public static function getAnnouncements()
+    {
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . config('statview.api_key'),
+            ])
+            ->get(config('statview.endpoint') . '/api/' . config('statview.project_id') . '/announcements');
+
+            return $response->json('data');
+        } catch(Exception $exception) {
+            info($exception);
+
+            return [];
+        }
+    }
+
     public static function getWidgets(): array
     {
         $widgets = static::$widgets;
