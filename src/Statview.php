@@ -6,12 +6,23 @@ use Closure;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use Statview\Satellite\Enums\PostType;
+use Statview\Satellite\Exceptions\MissingFeatureException;
+use Statview\Satellite\Features\Gauge;
 use Statview\Satellite\Widgets\Action;
 use Statview\Satellite\Widgets\Widget;
 
 class Statview
 {
     protected static array|Closure $widgets = [];
+
+    protected array $features = [];
+
+    public function __construct()
+    {
+        $this->features = [];
+
+        $this->features['gauge'] = new Gauge($this);
+    }
 
     public static function registerWidgets(array|Widget|Closure $widgets): void
     {
@@ -21,7 +32,7 @@ class Statview
             return;
         }
 
-        if (! is_array($widgets)) {
+        if (!is_array($widgets)) {
             $widgets = [$widgets];
         }
 
@@ -33,7 +44,7 @@ class Statview
 
     public static function postToTimeline(string $title, string $body, PostType $type = PostType::Default, ?string $icon = null, array $actions = []): void
     {
-        $wrongFormat = array_filter($actions, fn (mixed $action) => ! $action instanceof Action);
+        $wrongFormat = array_filter($actions, fn(mixed $action) => !$action instanceof Action);
 
         if (filled($wrongFormat)) {
             throw new Exception('Timeline item action wrong type.');
@@ -43,13 +54,13 @@ class Statview
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . config('statview.api_key'),
             ])
-            ->post(config('statview.endpoint') . '/api/timeline/' . config('statview.project_id'), [
-                'title' => $title,
-                'body' => $body,
-                'type' => $type->value,
-                'icon' => $icon ?? $type->getIcon(),
-                'actions' => $actions,
-            ]);
+                ->post(config('statview.endpoint') . '/api/timeline/' . config('statview.project_id'), [
+                    'title' => $title,
+                    'body' => $body,
+                    'type' => $type->value,
+                    'icon' => $icon ?? $type->getIcon(),
+                    'actions' => $actions,
+                ]);
         } catch (Exception $e) {
             info($e);
         }
@@ -61,10 +72,10 @@ class Statview
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . config('statview.api_key'),
             ])
-            ->get(config('statview.endpoint') . '/api/' . config('statview.project_id') . '/announcements');
+                ->get(config('statview.endpoint') . '/api/' . config('statview.project_id') . '/announcements');
 
             return $response->json('data');
-        } catch(Exception $exception) {
+        } catch (Exception $exception) {
             info($exception);
 
             return [];
@@ -80,5 +91,14 @@ class Statview
         }
 
         return $widgets;
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        if (!isset($this->features[$name])) {
+            throw new MissingFeatureException();
+        }
+
+        return $this->features[$name];
     }
 }

@@ -1,42 +1,45 @@
 {
-    "name": "statview/satellite",
-    "description": "Satellite package for Statview",
-    "type": "library",
-    "autoload": {
-        "psr-4": {
-            "Statview\\Satellite\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Statview\\Satellite\\Tests\\": "tests/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Sebastiaan",
-            "email": "skloos@pm.me"
-        }
+  "name": "statview/satellite",
+  "description": "Satellite package for Statview",
+  "type": "library",
+  "autoload": {
+    "files": [
+      "src/functions.php"
     ],
-    "require": {
-        "illuminate/contracts": "^9.0 || ^10.0"
-    },
-    "require-dev": {
-        "spatie/laravel-ray": "^1.32.4",
-        "pestphp/pest": "^2.6",
-        "pestphp/pest-plugin-laravel": "^2.0",
-        "orchestra/testbench": "^8.0.10"
-    },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Statview\\Satellite\\SatelliteServiceProvider"
-            ]
-        }
+    "psr-4": {
+      "Statview\\Satellite\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Statview\\Satellite\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Sebastiaan",
+      "email": "skloos@pm.me"
+    }
+  ],
+  "require": {
+    "illuminate/contracts": "^9.0 || ^10.0"
+  },
+  "require-dev": {
+    "spatie/laravel-ray": "^1.32.4",
+    "pestphp/pest": "^2.9",
+    "pestphp/pest-plugin-laravel": "^2.0",
+    "orchestra/testbench": "^8.0.10"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Statview\\Satellite\\SatelliteServiceProvider"
+      ]
+    }
+  }
 }

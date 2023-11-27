@@ -17,8 +17,10 @@ class SatelliteServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/statview.php', 'statview',
+            __DIR__ . '/../config/statview.php', 'statview',
         );
+
+        $this->registerFeatures();
 
         $this->registerDsn();
 
@@ -37,16 +39,21 @@ class SatelliteServiceProvider extends ServiceProvider
             ]);
 
             $this->publishes([
-                __DIR__.'/../config/statview.php' => config_path('statview.php'),
+                __DIR__ . '/../config/statview.php' => config_path('statview.php'),
             ], 'statview-config');
 
             $this->bootChecks();
         }
     }
 
+    private function registerFeatures(): void
+    {
+
+    }
+
     private function registerDsn(): void
     {
-        if (! filled(config('statview.dsn'))) {
+        if (!filled(config('statview.dsn'))) {
             return;
         }
 
@@ -82,7 +89,7 @@ class SatelliteServiceProvider extends ServiceProvider
             'prefix' => config('statview.path'),
             'middleware' => config('statview.middleware'),
         ], function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
         });
     }
 
